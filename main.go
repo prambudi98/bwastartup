@@ -1,9 +1,8 @@
 package main
 
 import (
+	"bwastartup/handler"
 	"bwastartup/user"
-	"bwastartup/user/handler"
-	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -22,26 +21,33 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 	userHandler := handler.NewUserHandler(userService)
-	input := user.LoginInput{
-		Email:    "Pos2w@gmail.com",
-		Password: "password123",
-	}
+	/*
+		input := user.LoginInput{
+			Email:    "Pos2w@gmail.com",
+			Password: "password123",
+		}
 
-	user, err := userService.Login(input)
+		user, err := userService.Login(input)
 
-	if err != nil {
-		fmt.Println("Terjadi Kesalahan")
-		fmt.Println(err.Error())
-	}
 
-	fmt.Println("Name : " + user.Name)
-	fmt.Println("Email :" + user.Email)
 
+
+		if err != nil {
+			fmt.Println("Terjadi Kesalahan")
+			fmt.Println(err.Error())
+		}
+
+		fmt.Println("Name : " + user.Name)
+		fmt.Println("Email :" + user.Email)
+	*/
+
+	userService.SaveAvatar(1, "images/test.jpg")
 	router := gin.Default()
 	api := router.Group("/api/v1")
 	api.POST("/users", userHandler.RegisterUser)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailibility)
+	api.POST("/avatars", userHandler.UploadAvatar)
 
 	router.Run()
 
