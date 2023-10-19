@@ -25,7 +25,28 @@ func main() {
 	authService := auth.NewService()
 	userHandler := handler.NewUserHandler(userService, authService)
 
-	fmt.Println(authService.GenerateToken(1001))
+	//fmt.Println(authService.GenerateToken(1001))
+
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxN30.BjbadYkX8QSKf3xN6BJde3VJBVwABAFgZ4sNX-_EL7k")
+
+	if err != nil {
+
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+
+	}
+
+	if token.Valid {
+		fmt.Println("VALID")
+		fmt.Println("VALID")
+		fmt.Println("VALID")
+	} else {
+		fmt.Println("INVALID")
+		fmt.Println("INVALID")
+		fmt.Println("INVALID")
+	}
+
 	/*
 		input := user.LoginInput{
 			Email:    "Pos2w@gmail.com",
